@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: struc-postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: struc_user
+      POSTGRES_PASSWORD: struc_pass
+      POSTGRES_DB: struc_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
