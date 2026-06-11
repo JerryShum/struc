@@ -4,6 +4,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { runMigrations } from './db/migrate.js';
 import authRouter from './routes/auth.js';
+import habitsRouter from './routes/habits.js';
 import { requireAuth, type AuthVariables } from './middleware/auth.js';
 
 const app = new Hono<{ Variables: AuthVariables }>();
@@ -14,6 +15,9 @@ app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date() }));
 
 // Mount auth endpoints
 app.route('/auth', authRouter);
+
+// Mount habits endpoints
+app.route('/habits', habitsRouter);
 
 // Protected test endpoint to verify authorization middleware
 app.get('/auth/me', requireAuth, (c) => {
